@@ -28,4 +28,11 @@ class StateRequest extends FormRequest
             'title'=> 'required|string|',
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+        ];
+    }
 }

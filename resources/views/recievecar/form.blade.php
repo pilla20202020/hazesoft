@@ -22,6 +22,9 @@
                                         <option value="{{$customer->id}}" @if(isset($recievecar) && ($recievecar->customer_id == $customer->id)) selected @endif>{{ucfirst($customer->name)}}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('customer_id'))
+                                    <span class="text-danger">{{ $errors->first('customer_id') }}</span>
+                                @endif
                             </div>
                         </div>
 
@@ -45,6 +48,9 @@
                                         <option value="{{$carmodel->id}}" @if(isset($recievecar) && ($recievecar->carmodel_id == $carmodel->id)) selected @endif>{{$carmodel->car->title}} - {{ucfirst($carmodel->title)}}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('carmodel_id'))
+                                    <span class="text-danger">{{ $errors->first('carmodel_id') }}</span>
+                                @endif
                             </div>
                         </div>
 
@@ -59,30 +65,51 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="Customer Location" class="form-label">Customer Location</label>
-                                <select name="customerlocation_id" id="customerlocation" class="form-control select2" required>
+                                <select name="customerlocation_id" id="customerlocation" class="form-control select2 district_class" required>
                                     <option value="#" selected disabled>Choose Customer Location</option>
                                     @foreach ($districts as $customer_location)
                                         <option value="{{$customer_location->id}}" @if(isset($recievecar) && ($recievecar->customerlocation_id == $customer_location->id)) selected @endif>{{ucfirst($customer_location->title)}}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('customerlocation_id'))
+                                    <span class="text-danger">{{ $errors->first('customerlocation_id') }}</span>
+                                @endif
                             </div>
                         </div>
 
-                        <div class="col-sm-5">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <label for="Car Location" class="form-label">Car Location</label>
-                                <select name="carlocation_id" id="carlocation" class="form-control select2" required>
+                                <select name="carlocation_id" id="carlocation" class="form-control select2 district_class" required>
                                     <option value="#" selected disabled>Choose Car Location</option>
                                     @foreach ($districts as $car_location)
                                         <option value="{{$car_location->id}}" @if(isset($recievecar) && ($recievecar->carlocation_id == $car_location->id)) selected @endif>{{ucfirst($car_location->title)}}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('carlocation_id'))
+                                    <span class="text-danger">{{ $errors->first('carlocation_id') }}</span>
+                                @endif
                             </div>
                         </div>
+
+                        <div class="col-md-3 p-0 ml-2">
+                            <div class="form-group ">
+                                <label for="carmode" class="col-form-label pt-4"></label>
+                                <div class="">
+                                    <a href="javascript:;" class="btn-addDistrict btn-twitter p-2">
+                                        <i class="fas fa-plus"></i> Add District/Location
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
                     </div>
+
+
 
 
                     <hr>
@@ -111,7 +138,11 @@
     <script src="{{ asset('resources/js/libs/jquery-validation/dist/jquery.validate.min.js') }}"></script>
     <script src="{{ asset('resources/js/libs/jquery-validation/dist/additional-methods.min.js') }}"></script>
     <script type="text/javascript">
-        $('.select2').select2();
+        $(".select2").select2({
+            containerCssClass: function(e) {
+                return $(e).attr('required') ? 'required' : '';
+            }
+        });
 
         $(document).ready(function () {
             $('.dropify').dropify();
@@ -145,6 +176,8 @@
                             body += "<option value='"+names.id+"'>"+names.name+"</option>";
                         });
                         $('.customer_class').html(body);
+                        $('#addCustomer').find("input,textarea,select").val('').end()
+
                     }
                 }
             })
@@ -181,6 +214,44 @@
                             body += "<option value='"+names.id+"'>"+names.title+"</option>";
                         });
                         $('.carmodel_class').html(body);
+                        $('#addCarModel').find("input,textarea,select").val('').end()
+                    }
+                }
+            })
+
+        })
+
+
+        // Add District
+        $('.btn-addDistrict').click(function(e){
+            e.preventDefault();
+            $('#addDistrict').modal('show');
+        });
+        $('.btn-storeDistirct').click(function(e){
+            e.preventDefault();
+            var state_id = $('.store_state_id').val();
+            var title = $('.store_districtTitle').val();
+            $.ajax({
+
+                url: "{{route('district.districtStore')}}",
+                type: "post",
+                data: {
+                    _token: $("meta[name='csrf-token']").attr('content'),
+                    state_id: state_id,
+                    title: title,
+                },
+                success:function(response){
+                    if(typeof(response) != "object"){
+                        response = JSON.parse(response);
+                    }
+                    var body = "";
+                    if(response.data){
+                        body += "<option value='' disabled selected>Choose Location</option>";
+                        $.each(response.data, function(key, names){
+                            body += "<option value='"+names.id+"'>"+names.title+"</option>";
+                        });
+                        $('.district_class').html(body);
+                        $('#addDistrict').find("input,textarea,select").val('').end()
                     }
                 }
             })

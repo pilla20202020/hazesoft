@@ -25,7 +25,14 @@ class CarRequest extends FormRequest
     {
         return [
             //
-            'title'=> 'required|string|',
+            'title'=> 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
         ];
     }
 }

@@ -18,7 +18,7 @@
             </button>
         </div>
 
-        <h2 style="color: white">Test Project</h2>
+        <h2 style="color: black">Test Project</h2>
 
 
     </div>

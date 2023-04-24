@@ -7,6 +7,7 @@ use App\Http\Requests\District\DistrictRequest;
 use App\Modules\Service\District\DistrictService;
 use App\Modules\Service\State\StateService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class DistrictController extends Controller
 {
@@ -116,5 +117,26 @@ class DistrictController extends Controller
         //
         $district = $this->district->delete($id);
         return response()->json(['status'=>true]);
+    }
+
+    public function districtStore(Request $request) {
+
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'state_id' => 'required|exists:states,id',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->all(),
+            ]);
+        }
+        if($district = $this->district->create($request->all())) {
+            $district = $this->district->paginate();
+            return response()->json([
+                'data' => $district,
+                'status' => true,
+                'message' => "District Added Successfully."
+            ]);
+        }
     }
 }

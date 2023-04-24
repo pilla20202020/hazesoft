@@ -23,6 +23,9 @@
                                         <option value="{{$car->id}}" @if(isset($carmodel) && ($carmodel->car_id == $car->id)) selected @endif>{{$car->title}}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('car_id'))
+                                    <span class="text-danger">{{ $errors->first('car_id') }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>

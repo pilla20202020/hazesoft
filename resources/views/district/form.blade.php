@@ -23,7 +23,11 @@
                                         <option value="{{$state->id}}" @if(isset($district) && ($district->state_id == $state->id)) selected @endif>{{$state->title}}</option>
                                     @endforeach
                                 </select>
+                                @if ($errors->has('state_id'))
+                                    <span class="text-danger">{{ $errors->first('state_id') }}</span>
+                                @endif
                             </div>
+
                         </div>
                     </div>
                     <div class="row">

@@ -26,7 +26,15 @@ class CarModelRequest extends FormRequest
         return [
             //
             'title'=> 'required|string|',
-            'car_id'=> 'required|',
+            'car_id'=> 'required|exists:cars,id',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+            'car_id.required' => 'Please Select Car',
         ];
     }
 }

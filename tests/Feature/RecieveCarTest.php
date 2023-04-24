@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class EventTest extends TestCase
+class RecieveCarTest extends TestCase
 {
     /**
      * A basic feature test example.
@@ -15,7 +15,7 @@ class EventTest extends TestCase
      */
     public function test_example()
     {
-        $response = $this->get('/event');
+        $response = $this->get('/recieve-car');
 
         $response->assertStatus(200);
     }

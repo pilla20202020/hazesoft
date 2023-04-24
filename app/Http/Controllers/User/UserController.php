@@ -10,6 +10,7 @@ use App\Modules\Service\User\UserService;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -128,6 +129,15 @@ class UserController extends Controller
     }
 
     public function userStore(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->all(),
+            ]);
+        }
         if($user = $this->user->create($request->all())) {
             $user = $this->user->paginate();
             return response()->json([

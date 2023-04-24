@@ -28,25 +28,26 @@ class RecieveCarService extends Service
     public function getAllData()
     {
         $query = $this->recievecar->get();
+
         return DataTables::of($query)
             ->addIndexColumn()
             ->addColumn('customer', function($query){
-                return $query->customer->name;
+                return ucfirst($query->customer->name);
             })
             ->addColumn('car_model', function($query){
-                return $query->carModel->title;
+                return  ucfirst($query->carModel->title);
             })
 
             ->addColumn('customer_location', function($query){
-                return $query->customerLocation->title;
+                return  ucfirst($query->customerLocation->title);
             })
 
             ->addColumn('car_location', function($query){
-                return $query->carLocation->title;
+                return  ucfirst($query->carLocation->title);
             })
             ->editcolumn('actions',function(RecieveCarModel $recievecar) {
-                $deleteRoute = route('recievecar.destroy',$recievecar->id);
-                $editRoute =  route('recievecar.edit',$recievecar->id);
+                $deleteRoute = route('recieve-car.destroy',$recievecar->id);
+                $editRoute =  route('recieve-car.edit',$recievecar->id);
 
                 return getTableHtml($recievecar,'actions',$editRoute,$deleteRoute,$printRoute = null,$viewRoute = null);
             })->make(true);
@@ -57,7 +58,6 @@ class RecieveCarService extends Service
         try {
 
             $recievecar = $this->recievecar->create($data);
-
             return $recievecar;
 
         } catch (Exception $e) {

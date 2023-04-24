@@ -7,6 +7,7 @@ use App\Http\Requests\CarModel\CarModelRequest;
 use App\Modules\Service\Car\CarService;
 use App\Modules\Service\CarModel\CarModelService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CarModelController extends Controller
 {
@@ -118,7 +119,15 @@ class CarModelController extends Controller
     }
 
     public function carModelStore(Request $request) {
-
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'car_id' => 'required|exists:cars,id',
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'error' => $validator->errors()->all(),
+            ]);
+        }
         if($carmodel = $this->carmodel->create($request->all())) {
             $carmodel = $this->carmodel->paginate();
             return response()->json([

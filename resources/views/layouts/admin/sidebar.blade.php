@@ -23,44 +23,31 @@
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow" aria-expanded="false">
-                        <i class="mdi mdi-share-variant"></i>
+                        <i class="fa fa-map-marker"></i>
                         <span>Location</span>
                     </a>
                     <ul class="sub-menu mm-collapse" aria-expanded="true">
-                        <li><a href="{{ route('state.index')}}" aria-expanded="false"><i class="fas fa-user"></i></i> State</a></li>
-                        <li><a href="{{ route('district.index')}}" aria-expanded="false"><i class="fas fa-user"></i></i> District</a></li>
+                        <li><a href="{{ route('state.index')}}" aria-expanded="false"><i class=" fas fa-hand-point-right"></i></i> State</a></li>
+                        <li><a href="{{ route('district.index')}}" aria-expanded="false"><i class=" fas fa-hand-point-right"></i></i> District</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="javascript: void(0);" class="has-arrow" aria-expanded="false">
-                        <i class="mdi mdi-share-variant"></i>
+                        <i class="fas fa-car"></i>
                         <span>Car & Models</span>
                     </a>
                     <ul class="sub-menu mm-collapse" aria-expanded="true">
-                        <li><a href="{{ route('car.index')}}" aria-expanded="false"><i class="fas fa-user"></i></i> Car</a></li>
-                        <li><a href="{{ route('carmodel.index')}}" aria-expanded="false"><i class="fas fa-user"></i></i> Car Model</a></li>
+                        <li><a href="{{ route('car.index')}}" aria-expanded="false"><i class=" fas fa-hand-point-right"></i></i> Car</a></li>
+                        <li><a href="{{ route('carmodel.index')}}" aria-expanded="false"><i class=" fas fa-hand-point-right"></i></i> Car Model</a></li>
                     </ul>
                 </li>
 
                 <li>
                     <a href="{{route('recieve-car.index')}}" class="waves-effect">
-                        <i class="fas fa-user"></i></i> Recieve A Car
+                        <i class=" fas fa-infinity"></i></i> Recieve A Car
                     </a>
                 </li>
-
-
-                <li>
-                    <a href="javascript: void(0);" class="has-arrow" aria-expanded="false">
-                        <i class="mdi mdi-share-variant"></i>
-                        <span>Event</span>
-                    </a>
-                    <ul class="sub-menu mm-collapse" aria-expanded="true">
-                        <li><a href="{{ route('event.index')}}" aria-expanded="false"><i class="fas fa-user"></i></i> Event</a></li>
-                    </ul>
-                </li>
-
-
 
             </ul>
         </div>

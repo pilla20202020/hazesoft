@@ -4,6 +4,7 @@ namespace App\Modules\Models\RecieveCar;
 
 use App\Modules\Models\CarModel\CarModel;
 use App\Modules\Models\District\District;
+use App\Modules\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,7 +21,7 @@ class RecieveCarModel extends Model
 
     public function carModel()
     {
-        return $this->belongsTo(CarModel::class);
+        return $this->belongsTo(CarModel::class,'carmodel_id','id');
     }
 
     public function customerLocation()

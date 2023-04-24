@@ -59,6 +59,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::resource('district', 'District\DistrictController');
     Route::get('district-data', 'District\DistrictController@getAllData')->name('district.data');
     Route::delete('district/{id}/destroy', 'District\DistrictController@destroy')->name('district.destroy');
+    Route::post('districtStore', 'District\DistrictController@districtStore')->name('district.districtStore');
 
 
     /*
@@ -92,23 +93,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     */
     Route::resource('recieve-car', 'RecieveCar\RecieveCarController');
     Route::get('recieve-car-data', 'RecieveCar\RecieveCarController@getAllData')->name('recieve-car.data');
+    Route::delete('recieve-car/{id}/destroy', 'RecieveCar\RecieveCarController@destroy')->name('recieve-car.destroy');
 
-    /*
-    |--------------------------------------------------------------------------
-    | Event CRUD
-    |--------------------------------------------------------------------------
-    |
-    */
 
-    Route::group(['as' => 'event.', 'prefix' => 'event',], function () {
-        Route::get('', 'Event\EventController@index')->name('index');
-        Route::get('event-data', 'Event\EventController@getAllData')->name('data');
-        Route::get('create', 'Event\EventController@create')->name('create');
-        Route::post('', 'Event\EventController@store')->name('store');
-        Route::get('{event}/edit', 'Event\EventController@edit')->name('edit');
-        Route::put('{event}', 'Event\EventController@update')->name('update');
-        Route::get('event/{id}/destroy', 'Event\EventController@destroy')->name('delete');
-    });
 
 
 

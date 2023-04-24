@@ -26,7 +26,15 @@ class DistrictRequest extends FormRequest
         return [
             //
             'title'=> 'required|string|',
-            'state_id'=> 'required|',
+            'state_id'=> 'required|exists:states,id',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'title.required' => 'Title is required',
+            'stat_id.required' => 'Please Select State',
         ];
     }
 }
